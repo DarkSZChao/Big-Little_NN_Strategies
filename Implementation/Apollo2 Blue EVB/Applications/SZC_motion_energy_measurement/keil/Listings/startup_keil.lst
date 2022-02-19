@@ -1,0 +1,1123 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;*******************************************************
+                       ***********************
+    2 00000000         ;
+    3 00000000         ;! @file startup_keil.s
+    4 00000000         ;!
+    5 00000000         ;! @brief Definitions for Apollo2 interrupt handlers, th
+                       e vector table, and the stack.
+    6 00000000         ;
+    7 00000000         ;*******************************************************
+                       ***********************
+    8 00000000         
+    9 00000000         ;*******************************************************
+                       ***********************
+   10 00000000         ;
+   11 00000000         ; Copyright (c) 2019, Ambiq Micro
+   12 00000000         ; All rights reserved.
+   13 00000000         ; 
+   14 00000000         ; Redistribution and use in source and binary forms, wit
+                       h or without
+   15 00000000         ; modification, are permitted provided that the followin
+                       g conditions are met:
+   16 00000000         ; 
+   17 00000000         ; 1. Redistributions of source code must retain the abov
+                       e copyright notice,
+   18 00000000         ; this list of conditions and the following disclaimer.
+   19 00000000         ; 
+   20 00000000         ; 2. Redistributions in binary form must reproduce the a
+                       bove copyright
+   21 00000000         ; notice, this list of conditions and the following disc
+                       laimer in the
+   22 00000000         ; documentation and/or other materials provided with the
+                        distribution.
+   23 00000000         ; 
+   24 00000000         ; 3. Neither the name of the copyright holder nor the na
+                       mes of its
+   25 00000000         ; contributors may be used to endorse or promote product
+                       s derived from this
+   26 00000000         ; software without specific prior written permission.
+   27 00000000         ; 
+   28 00000000         ; Third party software included in this distribution is 
+                       subject to the
+   29 00000000         ; additional license terms as defined in the /docs/licen
+                       ses directory.
+   30 00000000         ; 
+   31 00000000         ; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+                        CONTRIBUTORS "AS IS"
+   32 00000000         ; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT 
+                       NOT LIMITED TO, THE
+   33 00000000         ; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
+                       A PARTICULAR PURPOSE
+   34 00000000         ; ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER
+                        OR CONTRIBUTORS BE
+   35 00000000         ; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+                       EXEMPLARY, OR
+   36 00000000         ; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+                       PROCUREMENT OF
+   37 00000000         ; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PR
+                       OFITS; OR BUSINESS
+   38 00000000         ; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIAB
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                       ILITY, WHETHER IN
+   39 00000000         ; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGE
+                       NCE OR OTHERWISE)
+   40 00000000         ; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EV
+                       EN IF ADVISED OF THE
+   41 00000000         ; POSSIBILITY OF SUCH DAMAGE.
+   42 00000000         ;
+   43 00000000         ; This is part of revision 2.2.0 of the AmbiqSuite Devel
+                       opment Package.
+   44 00000000         ;
+   45 00000000         ;*******************************************************
+                       ***********************
+   46 00000000         
+   47 00000000         ;*******************************************************
+                       ***********************
+   48 00000000         ;
+   49 00000000         ; <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   50 00000000         ;*******************************************************
+                       *****************
+   51 00000000 0000F000 
+                       Stack   EQU              0x0000f000
+   52 00000000         
+   53 00000000         ;*******************************************************
+                       ***********************
+   54 00000000         ;
+   55 00000000         ; <o> Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   56 00000000         ;
+   57 00000000         ;*******************************************************
+                       ***********************
+   58 00000000 00020000 
+                       Heap    EQU              0x00020000
+   59 00000000         
+   60 00000000         ;*******************************************************
+                       ***********************
+   61 00000000         ;
+   62 00000000         ; Allocate space for the stack.
+   63 00000000         ;
+   64 00000000         ;*******************************************************
+                       ***********************
+   65 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
+=3
+   66 00000000         StackMem
+   67 00000000                 SPACE            Stack
+   68 0000F000         __initial_sp
+   69 0000F000         
+   70 0000F000         ;*******************************************************
+                       ***********************
+   71 0000F000         ;
+   72 0000F000         ; Allocate space for the heap.
+   73 0000F000         ;
+   74 0000F000         ;*******************************************************
+                       ***********************
+   75 0000F000                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+3
+   76 00000000         __heap_base
+   77 00000000         HeapMem
+   78 00000000                 SPACE            Heap
+   79 00020000         __heap_limit
+   80 00020000         
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   81 00020000         ;*******************************************************
+                       ***********************
+   82 00020000         ;
+   83 00020000         ; Indicate that the code in this file preserves 8-byte a
+                       lignment of the stack.
+   84 00020000         ;
+   85 00020000         ;*******************************************************
+                       ***********************
+   86 00020000                 PRESERVE8
+   87 00020000         
+   88 00020000         ;*******************************************************
+                       ***********************
+   89 00020000         ;
+   90 00020000         ; Place code into the reset code section.
+   91 00020000         ;
+   92 00020000         ;*******************************************************
+                       ***********************
+   93 00020000                 AREA             RESET, CODE, READONLY
+   94 00000000                 THUMB
+   95 00000000         
+   96 00000000         ;*******************************************************
+                       ***********************
+   97 00000000         ;
+   98 00000000         ; The vector table.
+   99 00000000         ;
+  100 00000000         ;*******************************************************
+                       ***********************
+  101 00000000         ;
+  102 00000000         ; Note: Aliasing and weakly exporting am_mpufault_isr, a
+                       m_busfault_isr, and
+  103 00000000         ; am_usagefault_isr does not work if am_fault_isr is def
+                       ined externally.
+  104 00000000         ; Therefore, we'll explicitly use am_fault_isr in the ta
+                       ble for those vectors.
+  105 00000000         ;
+  106 00000000         
+  107 00000000                 EXPORT           __Vectors
+  108 00000000         __Vectors
+  109 00000000 0000F000        DCD              StackMem + Stack ; Top of Stack
+                                                            
+  110 00000004 00000000        DCD              Reset_Handler ; Reset Handler
+  111 00000008 00000000        DCD              am_nmi_isr  ; NMI Handler
+  112 0000000C 00000000        DCD              am_fault_isr ; Hard Fault Handl
+                                                            er
+  113 00000010 00000000        DCD              am_fault_isr ; The MPU fault ha
+                                                            ndler
+  114 00000014 00000000        DCD              am_fault_isr ; The bus fault ha
+                                                            ndler
+  115 00000018 00000000        DCD              am_fault_isr ; The usage fault 
+                                                            handler
+  116 0000001C 00000000        DCD              0           ; Reserved
+  117 00000020 00000000        DCD              0           ; Reserved
+  118 00000024 00000000        DCD              0           ; Reserved
+  119 00000028 00000000        DCD              0           ; Reserved
+  120 0000002C 00000000        DCD              am_svcall_isr ; SVCall handler
+  121 00000030 00000000        DCD              am_debugmon_isr ; Debug monitor
+                                                             handler
+  122 00000034 00000000        DCD              0           ; Reserved
+  123 00000038 00000000        DCD              am_pendsv_isr ; The PendSV hand
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+                                                            ler
+  124 0000003C 00000000        DCD              am_systick_isr ; The SysTick ha
+                                                            ndler
+  125 00000040         
+  126 00000040         ;
+  127 00000040         ; Peripheral Interrupts
+  128 00000040         ;
+  129 00000040 00000000        DCD              am_brownout_isr ;  0: Reserved
+  130 00000044 00000000        DCD              am_watchdog_isr ;  1: Reserved
+  131 00000048 00000000        DCD              am_clkgen_isr ;  2: CLKGEN
+  132 0000004C 00000000        DCD              am_vcomp_isr ;  3: Voltage Comp
+                                                            arator
+  133 00000050 00000000        DCD              am_ioslave_ios_isr ;  4: I/O Sl
+                                                            ave general
+  134 00000054 00000000        DCD              am_ioslave_acc_isr ;  5: I/O Sl
+                                                            ave access
+  135 00000058 00000000        DCD              am_iomaster0_isr 
+                                                            ;  6: I/O Master 0
+  136 0000005C 00000000        DCD              am_iomaster1_isr 
+                                                            ;  7: I/O Master 1
+  137 00000060 00000000        DCD              am_iomaster2_isr 
+                                                            ;  8: I/O Master 2
+  138 00000064 00000000        DCD              am_iomaster3_isr 
+                                                            ;  9: I/O Master 3
+  139 00000068 00000000        DCD              am_iomaster4_isr 
+                                                            ; 10: I/O Master 4
+  140 0000006C 00000000        DCD              am_iomaster5_isr 
+                                                            ; 11: I/O Master 5
+  141 00000070 00000000        DCD              am_gpio_isr ; 12: GPIO
+  142 00000074 00000000        DCD              am_ctimer_isr ; 13: CTIMER
+  143 00000078 00000000        DCD              am_uart_isr ; 14: UART0
+  144 0000007C 00000000        DCD              am_uart1_isr ; 15: UART1
+  145 00000080 00000000        DCD              am_adc_isr  ; 16: ADC
+  146 00000084 00000000        DCD              am_pdm0_isr ; 17: PDM
+  147 00000088 00000000        DCD              am_stimer_isr 
+                                                            ; 18: SYSTEM TIMER
+  148 0000008C 00000000        DCD              am_stimer_cmpr0_isr ; 19: SYSTE
+                                                            M TIMER COMPARE0
+  149 00000090 00000000        DCD              am_stimer_cmpr1_isr ; 20: SYSTE
+                                                            M TIMER COMPARE1
+  150 00000094 00000000        DCD              am_stimer_cmpr2_isr ; 21: SYSTE
+                                                            M TIMER COMPARE2
+  151 00000098 00000000        DCD              am_stimer_cmpr3_isr ; 22: SYSTE
+                                                            M TIMER COMPARE3
+  152 0000009C 00000000        DCD              am_stimer_cmpr4_isr ; 23: SYSTE
+                                                            M TIMER COMPARE4
+  153 000000A0 00000000        DCD              am_stimer_cmpr5_isr ; 24: SYSTE
+                                                            M TIMER COMPARE5
+  154 000000A4 00000000        DCD              am_stimer_cmpr6_isr ; 25: SYSTE
+                                                            M TIMER COMPARE6
+  155 000000A8 00000000        DCD              am_stimer_cmpr7_isr ; 26: SYSTE
+                                                            M TIMER COMPARE7
+  156 000000AC 00000000        DCD              am_flash_isr ; 27: FLASH
+  157 000000B0 00000000        DCD              am_software0_isr 
+                                                            ; 28: SOFTWARE0
+  158 000000B4 00000000        DCD              am_software1_isr 
+                                                            ; 29: SOFTWARE1
+  159 000000B8 00000000        DCD              am_software2_isr 
+                                                            ; 30: SOFTWARE2
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+  160 000000BC 00000000        DCD              am_software3_isr 
+                                                            ; 31: SOFTWARE3
+  161 000000C0         
+  162 000000C0         __Vectors_End
+  163 000000C0         
+  164 000000C0 000000C0 
+                       __Vectors_Size
+                               EQU              __Vectors_End - __Vectors
+  165 000000C0         
+  166 000000C0         ;*******************************************************
+                       ***********************
+  167 000000C0         ;
+  168 000000C0         ; This is the code that gets called when the processor f
+                       irst starts execution
+  169 000000C0         ; following a reset event.
+  170 000000C0         ;
+  171 000000C0         ;*******************************************************
+                       ***********************
+  172 000000C0         Reset_Handler
+                               PROC
+  173 000000C0                 EXPORT           Reset_Handler               [WE
+AK]
+  174 000000C0                 IMPORT           __main
+  175 000000C0         
+  176 000000C0         ;
+  177 000000C0         ; Enable the FPU.
+  178 000000C0         ;
+  179 000000C0 F64E 5088       MOVW             R0, #0xED88
+  180 000000C4 F2CE 0000       MOVT             R0, #0xE000
+  181 000000C8 6801            LDR              R1, [R0]
+  182 000000CA F441 0170       ORR              R1, #0x00F00000
+  183 000000CE 6001            STR              R1, [R0]
+  184 000000D0 F3BF 8F4F       DSB
+  185 000000D4 F3BF 8F6F       ISB
+  186 000000D8         
+  187 000000D8         ;
+  188 000000D8         ; Branch to main.
+  189 000000D8         ;
+  190 000000D8 4802            LDR              R0, =__main
+  191 000000DA 4700            BX               R0
+  192 000000DC         
+  193 000000DC                 ENDP
+  194 000000DC         
+  195 000000DC         ;*******************************************************
+                       ***********************
+  196 000000DC         ;
+  197 000000DC         ; Weak Exception Handlers.
+  198 000000DC         ;
+  199 000000DC         ;*******************************************************
+                       ***********************
+  200 000000DC         am_nmi_isr
+                               PROC
+  201 000000DC                 EXPORT           am_nmi_isr                  [WE
+AK]
+  202 000000DC E7FE            B                .
+  203 000000DE                 ENDP
+  205 000000DE         am_fault_isr
+                               PROC
+  206 000000DE                 EXPORT           am_fault_isr                [WE
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+AK]
+  207 000000DE E7FE            B                .
+  208 000000E0                 ENDP
+  210 000000E0         am_memmanage_isr
+                               PROC
+  211 000000E0                 EXPORT           am_memmanage_isr            [WE
+AK]
+  212 000000E0 E7FE            B                .
+  213 000000E2                 ENDP
+  215 000000E2         am_default_isr
+                               PROC
+  216 000000E2                 EXPORT           am_svcall_isr               [WE
+AK]
+  217 000000E2                 EXPORT           am_debugmon_isr             [WE
+AK]
+  218 000000E2                 EXPORT           am_pendsv_isr               [WE
+AK]
+  219 000000E2                 EXPORT           am_systick_isr              [WE
+AK]
+  220 000000E2                 EXPORT           am_brownout_isr             [WE
+AK]
+  221 000000E2                 EXPORT           am_adc_isr                  [WE
+AK]
+  222 000000E2                 EXPORT           am_watchdog_isr             [WE
+AK]
+  223 000000E2                 EXPORT           am_clkgen_isr               [WE
+AK]
+  224 000000E2                 EXPORT           am_vcomp_isr                [WE
+AK]
+  225 000000E2                 EXPORT           am_ioslave_ios_isr          [WE
+AK]
+  226 000000E2                 EXPORT           am_ioslave_acc_isr          [WE
+AK]
+  227 000000E2                 EXPORT           am_iomaster0_isr            [WE
+AK]
+  228 000000E2                 EXPORT           am_iomaster1_isr            [WE
+AK]
+  229 000000E2                 EXPORT           am_iomaster2_isr            [WE
+AK]
+  230 000000E2                 EXPORT           am_iomaster3_isr            [WE
+AK]
+  231 000000E2                 EXPORT           am_iomaster4_isr            [WE
+AK]
+  232 000000E2                 EXPORT           am_iomaster5_isr            [WE
+AK]
+  233 000000E2                 EXPORT           am_gpio_isr                 [WE
+AK]
+  234 000000E2                 EXPORT           am_ctimer_isr               [WE
+AK]
+  235 000000E2                 EXPORT           am_uart_isr                 [WE
+AK]
+  236 000000E2                 EXPORT           am_uart0_isr                [WE
+AK]
+  237 000000E2                 EXPORT           am_uart1_isr                [WE
+AK]
+  238 000000E2                 EXPORT           am_pdm0_isr                 [WE
+AK]
+  239 000000E2                 EXPORT           am_stimer_isr               [WE
+AK]
+
+
+
+ARM Macro Assembler    Page 7 
+
+
+  240 000000E2                 EXPORT           am_stimer_cmpr0_isr         [WE
+AK]
+  241 000000E2                 EXPORT           am_stimer_cmpr1_isr         [WE
+AK]
+  242 000000E2                 EXPORT           am_stimer_cmpr2_isr         [WE
+AK]
+  243 000000E2                 EXPORT           am_stimer_cmpr3_isr         [WE
+AK]
+  244 000000E2                 EXPORT           am_stimer_cmpr4_isr         [WE
+AK]
+  245 000000E2                 EXPORT           am_stimer_cmpr5_isr         [WE
+AK]
+  246 000000E2                 EXPORT           am_stimer_cmpr6_isr         [WE
+AK]
+  247 000000E2                 EXPORT           am_stimer_cmpr7_isr         [WE
+AK]
+  248 000000E2                 EXPORT           am_flash_isr                [WE
+AK]
+  249 000000E2                 EXPORT           am_software0_isr            [WE
+AK]
+  250 000000E2                 EXPORT           am_software1_isr            [WE
+AK]
+  251 000000E2                 EXPORT           am_software2_isr            [WE
+AK]
+  252 000000E2                 EXPORT           am_software3_isr            [WE
+AK]
+  253 000000E2         
+  254 000000E2         am_svcall_isr
+  255 000000E2         am_debugmon_isr
+  256 000000E2         am_pendsv_isr
+  257 000000E2         am_systick_isr
+  258 000000E2         am_brownout_isr
+  259 000000E2         am_adc_isr
+  260 000000E2         am_watchdog_isr
+  261 000000E2         am_clkgen_isr
+  262 000000E2         am_vcomp_isr
+  263 000000E2         am_ioslave_ios_isr
+  264 000000E2         am_ioslave_acc_isr
+  265 000000E2         am_iomaster0_isr
+  266 000000E2         am_iomaster1_isr
+  267 000000E2         am_iomaster2_isr
+  268 000000E2         am_iomaster3_isr
+  269 000000E2         am_iomaster4_isr
+  270 000000E2         am_iomaster5_isr
+  271 000000E2         am_gpio_isr
+  272 000000E2         am_ctimer_isr
+  273 000000E2         am_uart_isr
+  274 000000E2         am_uart0_isr
+  275 000000E2         am_uart1_isr
+  276 000000E2         am_pdm0_isr
+  277 000000E2         am_stimer_isr
+  278 000000E2         am_stimer_cmpr0_isr
+  279 000000E2         am_stimer_cmpr1_isr
+  280 000000E2         am_stimer_cmpr2_isr
+  281 000000E2         am_stimer_cmpr3_isr
+  282 000000E2         am_stimer_cmpr4_isr
+  283 000000E2         am_stimer_cmpr5_isr
+  284 000000E2         am_stimer_cmpr6_isr
+  285 000000E2         am_stimer_cmpr7_isr
+
+
+
+ARM Macro Assembler    Page 8 
+
+
+  286 000000E2         am_flash_isr
+  287 000000E2         am_software0_isr
+  288 000000E2         am_software1_isr
+  289 000000E2         am_software2_isr
+  290 000000E2         am_software3_isr
+  291 000000E2         
+  292 000000E2         ; all device interrupts go here unless the weak label is
+                        over
+  293 000000E2         ; ridden in the linker hard spin so the debugger will kn
+                       ow it
+  294 000000E2         ; was an unhandled interrupt request a come-from-buffer 
+                       or
+  295 000000E2         ; instruction trace hardware would sure be nice if you g
+                       et here
+  296 000000E2 E7FE            B                .
+  297 000000E4         
+  298 000000E4                 ENDP
+  299 000000E4         
+  300 000000E4         ;*******************************************************
+                       ***********************
+  301 000000E4         ;
+  302 000000E4         ; Align the end of the section.
+  303 000000E4         ;
+  304 000000E4         ;*******************************************************
+                       ***********************
+  305 000000E4                 ALIGN
+  306 000000E4         
+  307 000000E4         ;*******************************************************
+                       ***********************
+  308 000000E4         ;
+  309 000000E4         ; Initialization of the heap and stack.
+  310 000000E4         ;
+  311 000000E4         ;*******************************************************
+                       ***********************
+  312 000000E4 00000000        AREA             |.text|, CODE, READONLY
+  313 00000000         
+  314 00000000         ;*******************************************************
+                       ***********************
+  315 00000000         ;
+  316 00000000         ; User Initial Stack & Heap.
+  317 00000000         ;
+  318 00000000         ;*******************************************************
+                       ***********************
+  319 00000000                 IF               :DEF: __MICROLIB
+  320 00000000                 EXPORT           __initial_sp
+  321 00000000                 EXPORT           __heap_base
+  322 00000000                 EXPORT           __heap_limit
+  323 00000000                 ELSE
+  335                          ENDIF
+  336 00000000         
+  337 00000000         ;*******************************************************
+                       ***********************
+  338 00000000         ;
+  339 00000000         ; Align the end of the section.
+  340 00000000         ;
+  341 00000000         ;*******************************************************
+                       ***********************
+  342 00000000                 ALIGN
+  343 00000000         
+
+
+
+ARM Macro Assembler    Page 9 
+
+
+  344 00000000         ;*******************************************************
+                       ***********************
+  345 00000000         ;
+  346 00000000         ; All Done
+  347 00000000         ;
+  348 00000000         ;*******************************************************
+                       ***********************
+  349 00000000                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=.\bin\startup_keil.d -o.\bin\startup_keil.o -I.\RTE\_SZC_mot
+ion_energy_measurement -IC:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMS
+IS\Core\Include -IC:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\DSP\
+Include -IC:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\DSP\PrivateI
+nclude -IC:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\NN\Include -I
+C:\SZC\Program\ARM_Keil\Keil_packs\AmbiqMicro\Apollo_DFP\1.2.0\Device\Include -
+-predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 535" --prede
+fine="_RTE_ SETA 1" --predefine="APOLLO2_1024 SETA 1" --predefine="_RTE_ SETA 1
+" --list=.\listings\startup_keil.lst ../keil/startup_keil.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+STACK 00000000
+
+Symbol: STACK
+   Definitions
+      At line 65 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: STACK unused
+StackMem 00000000
+
+Symbol: StackMem
+   Definitions
+      At line 66 in file ../keil/startup_keil.s
+   Uses
+      At line 109 in file ../keil/startup_keil.s
+Comment: StackMem used once
+__initial_sp 0000F000
+
+Symbol: __initial_sp
+   Definitions
+      At line 68 in file ../keil/startup_keil.s
+   Uses
+      At line 320 in file ../keil/startup_keil.s
+Comment: __initial_sp used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HEAP 00000000
+
+Symbol: HEAP
+   Definitions
+      At line 75 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: HEAP unused
+HeapMem 00000000
+
+Symbol: HeapMem
+   Definitions
+      At line 77 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: HeapMem unused
+__heap_base 00000000
+
+Symbol: __heap_base
+   Definitions
+      At line 76 in file ../keil/startup_keil.s
+   Uses
+      At line 321 in file ../keil/startup_keil.s
+Comment: __heap_base used once
+__heap_limit 00020000
+
+Symbol: __heap_limit
+   Definitions
+      At line 79 in file ../keil/startup_keil.s
+   Uses
+      At line 322 in file ../keil/startup_keil.s
+Comment: __heap_limit used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 93 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: RESET unused
+Reset_Handler 000000C0
+
+Symbol: Reset_Handler
+   Definitions
+      At line 172 in file ../keil/startup_keil.s
+   Uses
+      At line 110 in file ../keil/startup_keil.s
+      At line 173 in file ../keil/startup_keil.s
+
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 108 in file ../keil/startup_keil.s
+   Uses
+      At line 107 in file ../keil/startup_keil.s
+      At line 164 in file ../keil/startup_keil.s
+
+__Vectors_End 000000C0
+
+Symbol: __Vectors_End
+   Definitions
+      At line 162 in file ../keil/startup_keil.s
+   Uses
+      At line 164 in file ../keil/startup_keil.s
+Comment: __Vectors_End used once
+am_adc_isr 000000E2
+
+Symbol: am_adc_isr
+   Definitions
+      At line 259 in file ../keil/startup_keil.s
+   Uses
+      At line 145 in file ../keil/startup_keil.s
+      At line 221 in file ../keil/startup_keil.s
+
+am_brownout_isr 000000E2
+
+Symbol: am_brownout_isr
+   Definitions
+      At line 258 in file ../keil/startup_keil.s
+   Uses
+      At line 129 in file ../keil/startup_keil.s
+      At line 220 in file ../keil/startup_keil.s
+
+am_clkgen_isr 000000E2
+
+Symbol: am_clkgen_isr
+   Definitions
+      At line 261 in file ../keil/startup_keil.s
+   Uses
+      At line 131 in file ../keil/startup_keil.s
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 223 in file ../keil/startup_keil.s
+
+am_ctimer_isr 000000E2
+
+Symbol: am_ctimer_isr
+   Definitions
+      At line 272 in file ../keil/startup_keil.s
+   Uses
+      At line 142 in file ../keil/startup_keil.s
+      At line 234 in file ../keil/startup_keil.s
+
+am_debugmon_isr 000000E2
+
+Symbol: am_debugmon_isr
+   Definitions
+      At line 255 in file ../keil/startup_keil.s
+   Uses
+      At line 121 in file ../keil/startup_keil.s
+      At line 217 in file ../keil/startup_keil.s
+
+am_default_isr 000000E2
+
+Symbol: am_default_isr
+   Definitions
+      At line 215 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: am_default_isr unused
+am_fault_isr 000000DE
+
+Symbol: am_fault_isr
+   Definitions
+      At line 205 in file ../keil/startup_keil.s
+   Uses
+      At line 112 in file ../keil/startup_keil.s
+      At line 113 in file ../keil/startup_keil.s
+      At line 114 in file ../keil/startup_keil.s
+      At line 115 in file ../keil/startup_keil.s
+      At line 206 in file ../keil/startup_keil.s
+
+am_flash_isr 000000E2
+
+Symbol: am_flash_isr
+   Definitions
+      At line 286 in file ../keil/startup_keil.s
+   Uses
+      At line 156 in file ../keil/startup_keil.s
+      At line 248 in file ../keil/startup_keil.s
+
+am_gpio_isr 000000E2
+
+Symbol: am_gpio_isr
+   Definitions
+      At line 271 in file ../keil/startup_keil.s
+   Uses
+      At line 141 in file ../keil/startup_keil.s
+      At line 233 in file ../keil/startup_keil.s
+
+am_iomaster0_isr 000000E2
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Relocatable symbols
+
+
+Symbol: am_iomaster0_isr
+   Definitions
+      At line 265 in file ../keil/startup_keil.s
+   Uses
+      At line 135 in file ../keil/startup_keil.s
+      At line 227 in file ../keil/startup_keil.s
+
+am_iomaster1_isr 000000E2
+
+Symbol: am_iomaster1_isr
+   Definitions
+      At line 266 in file ../keil/startup_keil.s
+   Uses
+      At line 136 in file ../keil/startup_keil.s
+      At line 228 in file ../keil/startup_keil.s
+
+am_iomaster2_isr 000000E2
+
+Symbol: am_iomaster2_isr
+   Definitions
+      At line 267 in file ../keil/startup_keil.s
+   Uses
+      At line 137 in file ../keil/startup_keil.s
+      At line 229 in file ../keil/startup_keil.s
+
+am_iomaster3_isr 000000E2
+
+Symbol: am_iomaster3_isr
+   Definitions
+      At line 268 in file ../keil/startup_keil.s
+   Uses
+      At line 138 in file ../keil/startup_keil.s
+      At line 230 in file ../keil/startup_keil.s
+
+am_iomaster4_isr 000000E2
+
+Symbol: am_iomaster4_isr
+   Definitions
+      At line 269 in file ../keil/startup_keil.s
+   Uses
+      At line 139 in file ../keil/startup_keil.s
+      At line 231 in file ../keil/startup_keil.s
+
+am_iomaster5_isr 000000E2
+
+Symbol: am_iomaster5_isr
+   Definitions
+      At line 270 in file ../keil/startup_keil.s
+   Uses
+      At line 140 in file ../keil/startup_keil.s
+      At line 232 in file ../keil/startup_keil.s
+
+am_ioslave_acc_isr 000000E2
+
+Symbol: am_ioslave_acc_isr
+   Definitions
+      At line 264 in file ../keil/startup_keil.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 134 in file ../keil/startup_keil.s
+      At line 226 in file ../keil/startup_keil.s
+
+am_ioslave_ios_isr 000000E2
+
+Symbol: am_ioslave_ios_isr
+   Definitions
+      At line 263 in file ../keil/startup_keil.s
+   Uses
+      At line 133 in file ../keil/startup_keil.s
+      At line 225 in file ../keil/startup_keil.s
+
+am_memmanage_isr 000000E0
+
+Symbol: am_memmanage_isr
+   Definitions
+      At line 210 in file ../keil/startup_keil.s
+   Uses
+      At line 211 in file ../keil/startup_keil.s
+Comment: am_memmanage_isr used once
+am_nmi_isr 000000DC
+
+Symbol: am_nmi_isr
+   Definitions
+      At line 200 in file ../keil/startup_keil.s
+   Uses
+      At line 111 in file ../keil/startup_keil.s
+      At line 201 in file ../keil/startup_keil.s
+
+am_pdm0_isr 000000E2
+
+Symbol: am_pdm0_isr
+   Definitions
+      At line 276 in file ../keil/startup_keil.s
+   Uses
+      At line 146 in file ../keil/startup_keil.s
+      At line 238 in file ../keil/startup_keil.s
+
+am_pendsv_isr 000000E2
+
+Symbol: am_pendsv_isr
+   Definitions
+      At line 256 in file ../keil/startup_keil.s
+   Uses
+      At line 123 in file ../keil/startup_keil.s
+      At line 218 in file ../keil/startup_keil.s
+
+am_software0_isr 000000E2
+
+Symbol: am_software0_isr
+   Definitions
+      At line 287 in file ../keil/startup_keil.s
+   Uses
+      At line 157 in file ../keil/startup_keil.s
+      At line 249 in file ../keil/startup_keil.s
+
+am_software1_isr 000000E2
+
+Symbol: am_software1_isr
+
+
+
+ARM Macro Assembler    Page 5 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 288 in file ../keil/startup_keil.s
+   Uses
+      At line 158 in file ../keil/startup_keil.s
+      At line 250 in file ../keil/startup_keil.s
+
+am_software2_isr 000000E2
+
+Symbol: am_software2_isr
+   Definitions
+      At line 289 in file ../keil/startup_keil.s
+   Uses
+      At line 159 in file ../keil/startup_keil.s
+      At line 251 in file ../keil/startup_keil.s
+
+am_software3_isr 000000E2
+
+Symbol: am_software3_isr
+   Definitions
+      At line 290 in file ../keil/startup_keil.s
+   Uses
+      At line 160 in file ../keil/startup_keil.s
+      At line 252 in file ../keil/startup_keil.s
+
+am_stimer_cmpr0_isr 000000E2
+
+Symbol: am_stimer_cmpr0_isr
+   Definitions
+      At line 278 in file ../keil/startup_keil.s
+   Uses
+      At line 148 in file ../keil/startup_keil.s
+      At line 240 in file ../keil/startup_keil.s
+
+am_stimer_cmpr1_isr 000000E2
+
+Symbol: am_stimer_cmpr1_isr
+   Definitions
+      At line 279 in file ../keil/startup_keil.s
+   Uses
+      At line 149 in file ../keil/startup_keil.s
+      At line 241 in file ../keil/startup_keil.s
+
+am_stimer_cmpr2_isr 000000E2
+
+Symbol: am_stimer_cmpr2_isr
+   Definitions
+      At line 280 in file ../keil/startup_keil.s
+   Uses
+      At line 150 in file ../keil/startup_keil.s
+      At line 242 in file ../keil/startup_keil.s
+
+am_stimer_cmpr3_isr 000000E2
+
+Symbol: am_stimer_cmpr3_isr
+   Definitions
+      At line 281 in file ../keil/startup_keil.s
+   Uses
+      At line 151 in file ../keil/startup_keil.s
+      At line 243 in file ../keil/startup_keil.s
+
+
+
+ARM Macro Assembler    Page 6 Alphabetic symbol ordering
+Relocatable symbols
+
+
+am_stimer_cmpr4_isr 000000E2
+
+Symbol: am_stimer_cmpr4_isr
+   Definitions
+      At line 282 in file ../keil/startup_keil.s
+   Uses
+      At line 152 in file ../keil/startup_keil.s
+      At line 244 in file ../keil/startup_keil.s
+
+am_stimer_cmpr5_isr 000000E2
+
+Symbol: am_stimer_cmpr5_isr
+   Definitions
+      At line 283 in file ../keil/startup_keil.s
+   Uses
+      At line 153 in file ../keil/startup_keil.s
+      At line 245 in file ../keil/startup_keil.s
+
+am_stimer_cmpr6_isr 000000E2
+
+Symbol: am_stimer_cmpr6_isr
+   Definitions
+      At line 284 in file ../keil/startup_keil.s
+   Uses
+      At line 154 in file ../keil/startup_keil.s
+      At line 246 in file ../keil/startup_keil.s
+
+am_stimer_cmpr7_isr 000000E2
+
+Symbol: am_stimer_cmpr7_isr
+   Definitions
+      At line 285 in file ../keil/startup_keil.s
+   Uses
+      At line 155 in file ../keil/startup_keil.s
+      At line 247 in file ../keil/startup_keil.s
+
+am_stimer_isr 000000E2
+
+Symbol: am_stimer_isr
+   Definitions
+      At line 277 in file ../keil/startup_keil.s
+   Uses
+      At line 147 in file ../keil/startup_keil.s
+      At line 239 in file ../keil/startup_keil.s
+
+am_svcall_isr 000000E2
+
+Symbol: am_svcall_isr
+   Definitions
+      At line 254 in file ../keil/startup_keil.s
+   Uses
+      At line 120 in file ../keil/startup_keil.s
+      At line 216 in file ../keil/startup_keil.s
+
+am_systick_isr 000000E2
+
+Symbol: am_systick_isr
+   Definitions
+
+
+
+ARM Macro Assembler    Page 7 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 257 in file ../keil/startup_keil.s
+   Uses
+      At line 124 in file ../keil/startup_keil.s
+      At line 219 in file ../keil/startup_keil.s
+
+am_uart0_isr 000000E2
+
+Symbol: am_uart0_isr
+   Definitions
+      At line 274 in file ../keil/startup_keil.s
+   Uses
+      At line 236 in file ../keil/startup_keil.s
+Comment: am_uart0_isr used once
+am_uart1_isr 000000E2
+
+Symbol: am_uart1_isr
+   Definitions
+      At line 275 in file ../keil/startup_keil.s
+   Uses
+      At line 144 in file ../keil/startup_keil.s
+      At line 237 in file ../keil/startup_keil.s
+
+am_uart_isr 000000E2
+
+Symbol: am_uart_isr
+   Definitions
+      At line 273 in file ../keil/startup_keil.s
+   Uses
+      At line 143 in file ../keil/startup_keil.s
+      At line 235 in file ../keil/startup_keil.s
+
+am_vcomp_isr 000000E2
+
+Symbol: am_vcomp_isr
+   Definitions
+      At line 262 in file ../keil/startup_keil.s
+   Uses
+      At line 132 in file ../keil/startup_keil.s
+      At line 224 in file ../keil/startup_keil.s
+
+am_watchdog_isr 000000E2
+
+Symbol: am_watchdog_isr
+   Definitions
+      At line 260 in file ../keil/startup_keil.s
+   Uses
+      At line 130 in file ../keil/startup_keil.s
+      At line 222 in file ../keil/startup_keil.s
+
+45 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 312 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: .text unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+Heap 00020000
+
+Symbol: Heap
+   Definitions
+      At line 58 in file ../keil/startup_keil.s
+   Uses
+      At line 78 in file ../keil/startup_keil.s
+Comment: Heap used once
+Stack 0000F000
+
+Symbol: Stack
+   Definitions
+      At line 51 in file ../keil/startup_keil.s
+   Uses
+      At line 67 in file ../keil/startup_keil.s
+      At line 109 in file ../keil/startup_keil.s
+
+__Vectors_Size 000000C0
+
+Symbol: __Vectors_Size
+   Definitions
+      At line 164 in file ../keil/startup_keil.s
+   Uses
+      None
+Comment: __Vectors_Size unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 174 in file ../keil/startup_keil.s
+   Uses
+      At line 190 in file ../keil/startup_keil.s
+Comment: __main used once
+1 symbol
+394 symbols in table

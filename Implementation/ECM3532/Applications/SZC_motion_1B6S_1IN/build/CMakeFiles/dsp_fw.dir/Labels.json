@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/CMakeFiles/dsp_fw"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/CMakeFiles/dsp_fw.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/CMakeFiles/dsp_fw-complete.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-build.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-configure.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-download.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-install.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-mkdir.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-patch.rule"
+		},
+		{
+			"file" : "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1B6S_1IN/build/dsp_fw-prefix/src/dsp_fw-stamp/dsp_fw-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"dsp_fw"
+		],
+		"name" : "dsp_fw"
+	}
+}

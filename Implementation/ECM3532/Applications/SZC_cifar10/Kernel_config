@@ -1,0 +1,6 @@
+config OP_M3_CONV2D_Q7
+	bool
+	default y
+config OP_M3_AVPOOL2D_Q7
+	bool
+	default y

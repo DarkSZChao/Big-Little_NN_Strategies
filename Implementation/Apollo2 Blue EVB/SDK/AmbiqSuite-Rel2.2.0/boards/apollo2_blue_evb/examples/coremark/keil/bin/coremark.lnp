@@ -1,0 +1,19 @@
+--cpu=Cortex-M4.fp
+".\bin\am_time.o"
+".\bin\core_list_join.o"
+".\bin\core_main.o"
+".\bin\core_matrix.o"
+".\bin\core_portme.o"
+".\bin\core_state.o"
+".\bin\core_util.o"
+".\bin\am_util_delay.o"
+".\bin\am_util_faultisr.o"
+".\bin\am_util_stdio.o"
+".\bin\am_devices_led.o"
+".\bin\startup_keil.o"
+"../../../../../mcu/apollo2/hal/keil/bin/libam_hal.lib"
+"../../../bsp/keil/bin/libam_bsp.lib"
+--strict --scatter ".\coremark.sct"
+../../../../../mcu/apollo2/hal/keil/bin/libam_hal.lib(am_hal_global.o) --keep=am_hal_global.o(.data) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\coremark.map" -o .\bin\coremark.axf

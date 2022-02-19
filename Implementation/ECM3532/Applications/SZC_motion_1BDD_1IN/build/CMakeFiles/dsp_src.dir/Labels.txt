@@ -1,0 +1,13 @@
+# Target labels
+ dsp_src
+# Source files and their labels
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/CMakeFiles/dsp_src
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/CMakeFiles/dsp_src.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/CMakeFiles/dsp_src-complete.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-build.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-configure.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-download.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-install.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-mkdir.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-patch.rule
+/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Applications/SZC_motion_1BDD_1IN/build/dsp_src-prefix/src/dsp_src-stamp/dsp_src-update.rule

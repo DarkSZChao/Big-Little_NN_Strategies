@@ -1,0 +1,8 @@
+menu "Compiler tool demo"
+comment "Test the output infer.c from compiler"
+
+
+
+orsource "Kernel_config"
+
+endmenu

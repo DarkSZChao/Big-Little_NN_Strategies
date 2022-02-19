@@ -1,0 +1,352 @@
+Name:
+=====
+ binary_counter
+
+
+Description:
+============
+ Example that displays the timer count on the LEDs.
+
+
+This example increments a variable on every timer interrupt. The global
+variable is used to set the state of the LEDs. The example sleeps otherwise.
+
+SWO is configured in 1M baud, 8-n-1 mode.
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_beaconscanner
+
+
+Description:
+============
+ Cordio Beacon Scanner Example
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_datc
+
+
+Description:
+============
+ Cordio Data Client example.
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_dats
+
+
+Description:
+============
+ Cordio Data Server example.
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_eddystone_url
+
+
+Description:
+============
+ Cordio EddyStone URL Example
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_fcc_test
+
+
+Description:
+============
+ Cordio FCC test example
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_ibeacon
+
+
+Description:
+============
+ Cordio based iBeacon example.
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_power_cycle
+
+
+Description:
+============
+ Cordio Power Cycle EM9304 Example
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_tag
+
+
+Description:
+============
+ Cordio Proximity Tag Example
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_txpower_ctrl
+
+
+Description:
+============
+ Cordio Tx power control Example
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ cordio_watch
+
+
+Description:
+============
+ Concurrent Master/Slave Example.
+
+
+Purpose:
+========
+This example demonstrates an BLE application in the Central role.
+That is the BLE application operates as a slave to phone master and as the
+master of subordinate slave devices running freertos_fit example in this SDK.
+
+
+1. Printing takes place over the ITM at 1M Baud.
+2. When the example powers up, 
+2.A. it enters advertising mode by default to wait for connection from 
+smart phone with Time profile, Alert Notification profile and Phone
+Alert Status profile supported.
+2.B. when BTN2 on Apollo3 EVB is short-pressed, if advertising is on, it
+stops advertising first and then starts scanning when advertising is
+stopped; if scanning is on, it stops scanning and re-start advertising
+when scanning stops.
+2.C. During scanning, the device (if discovered) running freertos_fit
+example in this SDK will be connected and scanning will be stopped.
+2.D. Repeat 2.B. and 2.C. above to connect to a new slave device running 
+freertos_fit example (max slaves is 3).
+3. when phone (iPhone is used) connects to this example, the services of Time
+profile, Alert Notification profile and Phone Alert Status profile will be
+
+
+******************************************************************************
+
+
+Name:
+=====
+ deepsleep
+
+
+Description:
+============
+ Example demonstrating how to enter deepsleep.
+
+
+This example configures the device to go into a deep sleep mode. Once in
+sleep mode the device has no ability to wake up. This example is merely to
+provide the opportunity to measure deepsleep current without interrupts
+interfering with the measurement.
+
+The example begins by printing out a banner annoucement message through
+the UART, which is then completely disabled for the remainder of execution.
+
+Text is output to the UART at 115,200 BAUD, 8 bit, no parity.
+Please note that text end-of-line is a newline (LF) character only.
+Therefore, the UART terminal must be set to simulate a CR/LF.
+
+
+******************************************************************************
+
+
+Name:
+=====
+ em9304_test_bridge
+
+
+Description:
+============
+ UART-to-SPI bridge for Bluetooth Direct Mode testing of EM9304.
+
+
+This project implements a UART to SPI bridge for Direct Mode testing of
+the EM9304 BLE Controller.  The project uses UART0 and IOM5 in SPI mode.
+HCI packets are provided over the UART which the Apollo2 transfers via
+the SPI interface according to the EM9304 data sheet.  Responses from the
+EM9304 are read from the SPI interface and relayed over the UART.  The
+project uses the FIFOs and interrupts of the UART and IOM in order to
+implement non-blocking processing of the next received packet from either
+interface.
+
+
+******************************************************************************
+
+
+Name:
+=====
+ exactle_fit
+
+
+Description:
+============
+ ExactLE Fit example.
+
+
+This example application implements the standard BLE HRP profile using the
+ExactLE stack and the EM9304 BLE radio. This application is able to
+communicate with standard heart-rate applications running on recent model
+mobile devices.
+
+In this example implementation, the heart rate value is reported as a
+constant "78", and the "kCals consumed" value is reported as a single
+incrementing integer value. In a real application, these values could be
+supplied by a heart-rate sensor and context-tracking software.
+
+
+******************************************************************************
+
+
+Name:
+=====
+ freertos_amota_blinky
+
+
+Description:
+============
+ Example of an OTA-capable application.
+
+
+This example implements a BLE heart rate sensor within the FreeRTOS
+framework. To save power, this application is compiled without print
+statements by default. To enable them, add the following project-level
+macro definitions.
+
+AM_DEBUG_PRINTF
+WSF_TRACE_ENABLED=1
+
+If enabled, debug messages will be sent over ITM.
+
+
+******************************************************************************
+
+
+Name:
+=====
+ freertos_ancs
+
+
+Description:
+============
+ ANCS example.
+
+
+
+
+
+******************************************************************************
+
+
+Name:
+=====
+ freertos_fit
+
+
+Description:
+============
+ Example of the exactle_fit app running under FreeRTOS.
+
+
+This example implements a BLE heart rate sensor within the FreeRTOS
+framework. To save power, this application is compiled without print
+statements by default. To enable them, add the following project-level
+macro definitions.
+
+AM_DEBUG_PRINTF
+WSF_TRACE_ENABLED=1
+
+If enabled, debug messages will be sent over ITM.
+
+
+******************************************************************************
+
+
+Name:
+=====
+ freertos_fit
+
+
+Description:
+============
+ Example of the exactle_fit app running under FreeRTOS.
+
+
+This example implements a BLE heart rate sensor within the FreeRTOS
+framework. To save power, this application is compiled without print
+statements by default. To enable them, add the following project-level
+macro definitions.
+
+AM_DEBUG_PRINTF
+WSF_TRACE_ENABLED=1
+
+If enabled, debug messages will be sent over ITM.
+
+
+******************************************************************************
+
+

@@ -1,0 +1,46 @@
+file(REMOVE_RECURSE
+  "*"
+  "../SZC_motion_energy_measurement.ld"
+  "../config.h"
+  ".config.old"
+  "03_dsp_fw.bin"
+  "App"
+  "CMakeCache.txt"
+  "CMakeDoxyfile.in"
+  "CMakeDoxygenDefaults.cmake"
+  "Doxyfile"
+  "SZC_motion_energy_measurement.bin"
+  "SZC_motion_energy_measurement.elf"
+  "SZC_motion_energy_measurement.elf.json"
+  "SZC_motion_energy_measurement.lss"
+  "SZC_motion_energy_measurement.map"
+  "Thirdparty"
+  "cmake_install.cmake"
+  "dsp_fw-prefix"
+  "dsp_src-prefix"
+  "framework"
+  "hw"
+  "util
+"
+  "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Platform/ECM3532/M3/pre_built/libpm.a"
+  "/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Platform/ECM3532/M3/pre_built/libpm.pdb"
+  "CMakeCache.txt"
+  "CMakeFiles/pm.dir/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Platform/ECM3532/M3/hw/power/common/src/dvfs_mon.c.o"
+  "CMakeFiles/pm.dir/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Platform/ECM3532/M3/hw/power/common/src/dvfs_mon.c.o.d"
+  "CMakeFiles/pm.dir/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Platform/ECM3532/M3/hw/power/ecm3532/src/eta_pwr_gov.c.o"
+  "CMakeFiles/pm.dir/home/szc/Desktop/TensaiFlow_rc_alpha2-0.2/Platform/ECM3532/M3/hw/power/ecm3532/src/eta_pwr_gov.c.o.d"
+  "CPackConfig.cmake"
+  "CPackSourceConfig.cmake"
+  "\\*.bin"
+  "\\*.lss"
+  "\\*.map"
+  "\\.cmake"
+  "_CPack_Packages"
+  "cmake_install.cmake"
+  "util"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/pm.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

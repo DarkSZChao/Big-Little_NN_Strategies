@@ -1,0 +1,13 @@
+--cpu=Cortex-M4.fp.sp
+".\bin\binary_counter.o"
+".\bin\am_util_delay.o"
+".\bin\am_util_faultisr.o"
+".\bin\am_util_stdio.o"
+".\bin\am_devices_led.o"
+".\bin\startup_keil.o"
+"../../../../../mcu/apollo2/hal/keil/bin/libam_hal.lib"
+"../../../bsp/keil/bin/libam_bsp.lib"
+--strict --scatter ".\binary_counter.sct"
+../../../../../mcu/apollo2/hal/keil/bin/libam_hal.lib(am_hal_global.o) --keep=am_hal_global.o(.data) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\binary_counter.map" -o .\bin\binary_counter.axf

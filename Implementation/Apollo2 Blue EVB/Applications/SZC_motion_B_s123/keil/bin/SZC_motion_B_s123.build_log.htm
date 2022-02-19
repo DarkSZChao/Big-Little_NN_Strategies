@@ -1,0 +1,267 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.35.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Chao Shen, UoB, LIC=585FJ-UHCUF-SBAEJ-UH8ZE-NX0R8-0YUFI
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
+Toolchain Path:  C:\SZC\Program\ARM_Keil\Keil_v5.35\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.35.0.2
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      Segger\JL2CM3.dll V2.99.40.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+C:\SZC\PhD\Model_Implementation\Apollo2 Blue EVB\Applications\SZC_motion_B_s123\keil\SZC_motion_B_s123.uvprojx
+Project File Date:  10/05/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\SZC\Program\ARM_Keil\Keil_v5.35\ARM\ARMCC\Bin'
+Build target 'SZC_motion_B_s123'
+compiling nnom_tensor.c...
+compiling nnom_layers.c...
+compiling nnom_utils.c...
+compiling nnom.c...
+..\..\..\SDK\NNoM\src\core\nnom.c(525): warning:  #550-D: variable "compsize"  was set but never used
+  	size_t compsize;
+..\..\..\SDK\NNoM\src\core\nnom.c(928): warning:  #177-D: variable "time"  was declared but never referenced
+  	uint32_t time = nnom_ms_get();
+..\..\..\SDK\NNoM\src\core\nnom.c(1094): warning:  #550-D: variable "major"  was set but never used
+  	int32_t major, sub, rev;
+..\..\..\SDK\NNoM\src\core\nnom.c(1094): warning:  #550-D: variable "sub"  was set but never used
+  	int32_t major, sub, rev;
+..\..\..\SDK\NNoM\src\core\nnom.c(1094): warning:  #550-D: variable "rev"  was set but never used
+  	int32_t major, sub, rev;
+..\..\..\SDK\NNoM\src\core\nnom.c(108): warning:  #177-D: function "find_index"  was declared but never referenced
+  static uint32_t find_index(nnom_layer_t *start, nnom_layer_t *layer)
+..\..\..\SDK\NNoM\src\core\nnom.c(486): warning:  #177-D: function "layer_shortcut_find_last"  was declared but never referenced
+  static nnom_layer_t *layer_shortcut_find_last(nnom_layer_t *start)
+..\..\..\SDK\NNoM\src\core\nnom.c: 7 warnings, 0 errors
+compiling nnom_avgpool.c...
+..\..\..\SDK\NNoM\src\layers\nnom_avgpool.c(67): warning:  #177-D: variable "size"  was declared but never referenced
+  	uint32_t size;
+..\..\..\SDK\NNoM\src\layers\nnom_avgpool.c: 1 warning, 0 errors
+compiling nnom_baselayer.c...
+compiling nnom_activation.c...
+compiling nnom_local.c...
+..\..\..\SDK\NNoM\src\backends\nnom_local.c(750): warning:  #177-D: variable "shift_steps"  was declared but never referenced
+      int shift_idx, shift_steps;
+..\..\..\SDK\NNoM\src\backends\nnom_local.c(821): warning:  #177-D: variable "i_out"  was declared but never referenced
+      int i_out = 0;
+..\..\..\SDK\NNoM\src\backends\nnom_local.c(822): warning:  #177-D: variable "shift_steps"  was declared but never referenced
+      int shift_idx, shift_steps;
+..\..\..\SDK\NNoM\src\backends\nnom_local.c: 3 warnings, 0 errors
+compiling nnom_concat.c...
+compiling nnom_local_q15.c...
+compiling nnom_conv2d_trans.c...
+compiling nnom_cropping.c...
+compiling nnom_conv2d.c...
+..\..\..\SDK\NNoM\src\layers\nnom_conv2d.c(432): warning:  #111-D: statement is unreachable
+  	return NN_SUCCESS;
+..\..\..\SDK\NNoM\src\layers\nnom_conv2d.c: 1 warning, 0 errors
+compiling nnom_flatten.c...
+compiling nnom_dense.c...
+compiling nnom_dw_conv2d.c...
+compiling nnom_global_pool.c...
+compiling nnom_input.c...
+compiling nnom_gru_cell.c...
+compiling nnom_lambda.c...
+compiling nnom_lstm_cell.c...
+compiling nnom_matrix.c...
+compiling nnom_output.c...
+compiling nnom_maxpool.c...
+compiling nnom_rnn.c...
+compiling nnom_simple_cell.c...
+compiling nnom_softmax.c...
+compiling nnom_sumpool.c...
+compiling nnom_zero_padding.c...
+compiling nnom_upsample.c...
+compiling am_devices_button.c...
+compiling am_devices_led.c...
+compiling am_util_delay.c...
+compiling am_util_faultisr.c...
+compiling am_hal_debug.c...
+compiling am_hal_clkgen.c...
+compiling am_time.c...
+compiling am_hal_cachectrl.c...
+compiling am_hal_adc.c...
+compiling am_hal_ctimer.c...
+compiling am_hal_gpio.c...
+compiling core_portme.c...
+compiling am_hal_i2c_bit_bang.c...
+compiling am_hal_flash.c...
+compiling am_hal_queue.c...
+compiling am_hal_otp.c...
+compiling am_hal_reset.c...
+compiling am_hal_pdm.c...
+compiling am_hal_pwrctrl.c...
+compiling am_hal_mcuctrl.c...
+compiling am_hal_interrupt.c...
+compiling am_hal_itm.c...
+compiling am_hal_ios.c...
+compiling am_hal_iom.c...
+compiling am_hal_vcomp.c...
+compiling am_hal_systick.c...
+compiling am_hal_tpiu.c...
+compiling am_hal_sysctrl.c...
+compiling am_hal_ttp.c...
+compiling am_hal_rtc.c...
+compiling am_hal_stimer.c...
+compiling am_hal_uart.c...
+compiling am_hal_wdt.c...
+compiling main.c...
+linking...
+Program Size: Code=15168 RO-data=33496 RW-data=96 ZI-data=194056  
+".\bin\SZC_motion_B_s123.axf" - 0 Error(s), 12 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+   * Component: DSP Variant: Source Version: 1.9.0-dev
+   * Component: NN Lib Version: 3.0.0
+
+Package Vendor: AmbiqMicro
+                http://s3.asia.ambiqmicro.com/pack/AmbiqMicro.Apollo_DFP.1.2.0.pack
+                AmbiqMicro.Apollo_DFP.1.2.0
+                Ambiq Micro Apollo Series Device Support
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_SZC_motion_B_s123
+  C:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  C:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\DSP\Include
+  C:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\DSP\PrivateInclude
+  C:\SZC\Program\ARM_Keil\Keil_packs\ARM\CMSIS\5.8.0\CMSIS\NN\Include
+  C:\SZC\Program\ARM_Keil\Keil_packs\AmbiqMicro\Apollo_DFP\1.2.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+
+   * Component: ARM::CMSIS:DSP:Source:1.9.0-dev
+      Include file:  CMSIS\DSP\Include\arm_math.h
+      Source file:   CMSIS\DSP\Source\BasicMathFunctions\BasicMathFunctions.c
+      Source file:   CMSIS\DSP\Source\QuaternionMathFunctions\QuaternionMathFunctions.c
+      Source file:   CMSIS\DSP\Source\BayesFunctions\BayesFunctions.c
+      Source file:   CMSIS\DSP\Source\ComplexMathFunctions\ComplexMathFunctions.c
+      Source file:   CMSIS\DSP\Source\ControllerFunctions\ControllerFunctions.c
+      Source file:   CMSIS\DSP\Source\FastMathFunctions\FastMathFunctions.c
+      Include file:  CMSIS\DSP\Include\arm_const_structs_f16.h
+      Source file:   CMSIS\DSP\Source\FilteringFunctions\FilteringFunctions.c
+      Source file:   CMSIS\DSP\Source\MatrixFunctions\MatrixFunctions.c
+      Include file:  CMSIS\DSP\Include\arm_math_f16.h
+      Include file:  CMSIS\DSP\Include\arm_common_tables_f16.h
+      Source file:   CMSIS\DSP\Source\CommonTables\CommonTables.c
+      Include file:  CMSIS\DSP\Include\arm_const_structs.h
+      Source file:   CMSIS\DSP\Source\StatisticsFunctions\StatisticsFunctions.c
+      Source file:   CMSIS\DSP\Source\SupportFunctions\SupportFunctions.c
+      Source file:   CMSIS\DSP\Source\SVMFunctions\SVMFunctions.c
+      Source file:   CMSIS\DSP\Source\DistanceFunctions\DistanceFunctions.c
+      Source file:   CMSIS\DSP\Source\TransformFunctions\TransformFunctions.c
+      Include file:  CMSIS\DSP\Include\arm_common_tables.h
+      Source file:   CMSIS\DSP\Source\DistanceFunctions\DistanceFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\MatrixFunctions\MatrixFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\SVMFunctions\SVMFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\FastMathFunctions\FastMathFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\BasicMathFunctions\BasicMathFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\ComplexMathFunctions\ComplexMathFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\TransformFunctions\TransformFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\CommonTables\CommonTablesF16.c
+      Source file:   CMSIS\DSP\Source\StatisticsFunctions\StatisticsFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\InterpolationFunctions\InterpolationFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\FilteringFunctions\FilteringFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\BayesFunctions\BayesFunctionsF16.c
+      Source file:   CMSIS\DSP\Source\InterpolationFunctions\InterpolationFunctions.c
+      Source file:   CMSIS\DSP\Source\SupportFunctions\SupportFunctionsF16.c
+
+   * Component: ARM::CMSIS:NN Lib:3.0.0
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_mat_mul_core_4x_s8.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nntables.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_mat_q7_vec_q15_opt.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_depthwise_conv_nt_t_s8.c
+      Source file:   CMSIS\NN\Source\SoftmaxFunctions\arm_softmax_with_batch_q7.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_mat_mul_core_1x_s8.c
+      Source file:   CMSIS\NN\Source\SoftmaxFunctions\arm_softmax_s8.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_q7.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_mat_q7_vec_q15.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_q7_to_q15_reordered_with_offset.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_s8.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_q15.c
+      Source file:   CMSIS\NN\Source\SoftmaxFunctions\arm_softmax_q15.c
+      Source file:   CMSIS\NN\Source\SoftmaxFunctions\arm_softmax_u8.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_q7_to_q15_no_shift.c
+      Source file:   CMSIS\NN\Source\SoftmaxFunctions\arm_softmax_q7.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_add_q7.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_q7_opt.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_mult_q15.c
+      Source file:   CMSIS\NN\Source\FullyConnectedFunctions\arm_fully_connected_q15_opt.c
+      Include file:  CMSIS\NN\Include\arm_nn_types.h
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q7_fast_nonsquare.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_1_x_n_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_nn_mat_mult_kernel_s8_s16.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_conv_u8_basic_ver1.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_nn_mat_mult_kernel_s8_s16_reordered.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_separable_conv_HWC_q7.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_conv_wrapper_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_nn_mat_mult_kernel_q7_q15.c
+      Include file:  CMSIS\NN\Include\arm_nnfunctions.h
+      Include file:  CMSIS\NN\Include\arm_nnsupportfunctions.h
+      Include file:  CMSIS\NN\Include\arm_nn_tables.h
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q7_fast.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q7_RGB.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q7_basic_nonsquare.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_s8.c
+      Source file:   CMSIS\NN\Source\PoolingFunctions\arm_avgpool_s8.c
+      Source file:   CMSIS\NN\Source\PoolingFunctions\arm_pool_q7_HWC.c
+      Source file:   CMSIS\NN\Source\BasicMathFunctions\arm_elementwise_mul_s8.c
+      Source file:   CMSIS\NN\Source\ActivationFunctions\arm_relu6_s8.c
+      Source file:   CMSIS\NN\Source\ActivationFunctions\arm_relu_q15.c
+      Source file:   CMSIS\NN\Source\ActivationFunctions\arm_relu_q7.c
+      Source file:   CMSIS\NN\Source\ActivationFunctions\arm_nn_activations_q15.c
+      Source file:   CMSIS\NN\Source\ActivationFunctions\arm_nn_activations_q7.c
+      Source file:   CMSIS\NN\Source\BasicMathFunctions\arm_elementwise_add_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_nn_mat_mult_s8.c
+      Source file:   CMSIS\NN\Source\ConcatenationFunctions\arm_concatenation_s8_x.c
+      Source file:   CMSIS\NN\Source\ReshapeFunctions\arm_reshape_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_conv_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_conv_3x3_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q15_fast_nonsquare.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_conv_s8_opt.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_1x1_s8_fast.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q15_basic.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q7_basic.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_wrapper_s8.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_depthwise_separable_conv_HWC_q7_nonsquare.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_HWC_q15_fast.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_nn_mat_mult_kernel_q7_q15_reordered.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_convolve_1x1_HWC_q7_fast_nonsquare.c
+      Source file:   CMSIS\NN\Source\ConcatenationFunctions\arm_concatenation_s8_y.c
+      Source file:   CMSIS\NN\Source\ConcatenationFunctions\arm_concatenation_s8_z.c
+      Source file:   CMSIS\NN\Source\ConvolutionFunctions\arm_nn_depthwise_conv_s8_core.c
+      Source file:   CMSIS\NN\Source\SVDFunctions\arm_svdf_s8.c
+      Source file:   CMSIS\NN\Source\ConcatenationFunctions\arm_concatenation_s8_w.c
+      Source file:   CMSIS\NN\Source\PoolingFunctions\arm_max_pool_s8.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_q7_to_q15_reordered_no_shift.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_vec_mat_mult_t_svdf_s8.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_accumulate_q7_to_q15.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_mat_mult_nt_t_s8.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_depthwise_conv_nt_t_padded_s8.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_mult_q7.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_q7_to_q15_with_offset.c
+      Source file:   CMSIS\NN\Source\NNSupportFunctions\arm_nn_vec_mat_mult_t_s8.c
+Build Time Elapsed:  00:00:13
+</pre>
+</body>
+</html>
