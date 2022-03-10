@@ -26,7 +26,6 @@ We use Sparkfun Edge as example here for deployment. Move the tflite models into
 
 
 
-Used Resources:
-    1. UCI-HAR Dataset: https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
+UCI-HAR Dataset: https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
 
 
