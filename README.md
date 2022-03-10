@@ -18,6 +18,11 @@ This project repository contains:
     4.  STM32L4R5ZI-P
 
 
+Note: The model training process using Model_Training can be done under Window 10 OS, or Ubuntu 20.04 OS if prefer. The deployment for SparkFun and ECM3532 can only be done under Ubuntu 20.04 OS. The deployment for Apollo2 and STM32L4R5ZI can be done by using Keil IDE which only works under Window 10 OS.
+
+Get start with ‘Big’ and ‘Little’ networks training by using Model_Training folder and setting this directory as root in PyCharm (recommended IDE). Then the UCI_HAR database can be found in MOTION_Detector. Run B_s123.py to train ‘Big’ CNN model with 3 sensor input branches. Run S_s3.py to train ‘Little’ model by only using third sensor as input. 
+After the training process, h5 files can be found under Output_Models. The h5 model can be converted into quantized tflite format by using .h5_to_.tflite.sh under Tools. 
+We use Sparkfun Edge as example here for deployment. Move the tflite models into Deployment Tools and convert them into C code by xxd command. Then manually edit the header in the C model or run the .cc_header_modification.py to match the variables called in main.cc in project. Then the rest steps can be found here: https://codelabs.developers.google.com/codelabs/sparkfun-tensorflow#3 
 
 
 
